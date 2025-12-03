@@ -3,7 +3,7 @@ from .models import *
 class DoctorForm(forms.ModelForm):
     class Meta:
         model = DoctorTable
-        fields = ['Name','PhNumber','Specialization','HospitalName','Email']
+        fields = ['Name','PhNumber','Address','Specialization','HospitalName','Email']
 
 class PatientForm(forms.ModelForm):
     class Meta:
@@ -28,5 +28,9 @@ class PrescriptionForms(forms.ModelForm):
 class PostForms(forms.ModelForm):
     class Meta:
         model = PostTable
-        fields = ['Image','Document','Date']
-        
+        fields = ['Image','Document']
+
+class notificationForms(forms.ModelForm): 
+    class Meta:
+        model = notificationTable
+        fields = ['Notification']    

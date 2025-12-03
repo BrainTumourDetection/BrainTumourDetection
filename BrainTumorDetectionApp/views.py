@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.views import View
 
 from BrainTumorDetectionApp.forms import DoctorForm
-from BrainTumorDetectionApp.models import LoginTable
+from BrainTumorDetectionApp.models import AppoinmentTable, DoctorTable, LoginTable, MedicineTable, PatientTable, PostTable, PrescriptionTable, notificationTable
 
 # Create your views here.
 
@@ -32,18 +32,19 @@ class ManageDoctorPage(View):
     def get(self, request):
         return render(request, "administration/manage_doc.html")
     def post(self, request):
-        if request.method == 'POST' and request.FILES:
+        if request.method == 'POST':
             print("-------------------->", request.POST)
-            form = DoctorForm(request.POST, request.FILES)
-            username = request.POST['username']
+            form = DoctorForm(request.POST)
+            username = request.POST['Email']
             password = request.POST['password']
-            login_obj = LoginTable(username=username, password=password, user_type='doctor')
+            login_obj = LoginTable(Username=username, Password=password, UserType='doctor')
             login_obj.save()
+            print("----------------", request.POST)
             if form.is_valid():
                 f=form.save(commit=False)
                 f.LOGIN=login_obj
                 f.save()
-                return redirect('managedoctor')
+                return redirect('Managedoc')
 
 class ManageMedicinePage(View):
     def get(self, request):
@@ -53,37 +54,49 @@ class RegistrationPage(View):
         return render(request, "administration/registration.html")
 class viewappoinmentPage(View):
     def get(self, request):
-        return render(request, "administration/view_appoinment.html")
+        obj = AppoinmentTable.objects.all()
+        return render(request, "administration/view_appoinment.html", {'val': obj} )
+    
 class viewdoctorPage(View):
     def get(self, request):
-        return render(request, "administration/view_doctor.html")
+        obj = DoctorTable.objects.all()
+        return render(request, "administration/view_doctor.html", {'val': obj} )
 class medicinePage(View):
     def get(self, request):
-        return render(request, "administration/view-medi.html")
+        obj = MedicineTable.objects.all()
+        return render(request, "administration/view-medi.html", {'val': obj})
 class PatientPage(View):
     def get(self, request):
-        return render(request, "administration/view_patient.html")
+        obj = PatientTable.objects.all()
+        return render(request, "administration/view_patient.html", {'val': obj})
+    
 class AdminHome(View):
     def get(self, request):
         return render(request, "administration/admin_dashboard.html")  
+    
 
 # ////////////////////////////////////////// DOCTOR /////////////////////////////////////////////////
 
 class notificationPage(View):
     def get(self, request):
-        return render(request, "doctor/notification.html")
+        obj = notificationTable.objects.all()
+        return render(request, "doctor/notification.html", {'val': obj} )
 class postPage(View):
     def get(self, request):
-        return render(request, "doctor/post_table.html")
+        obj = PostTable.objects.all()
+        return render(request, "doctor/post_table.html", {'val': obj} )
 class prescriptionPage(View):
     def get(self, request):
-        return render(request, "doctor/prescription.html")
+        obj = PrescriptionTable.objects.all()
+        return render(request, "doctor/prescription.html", {'val': obj} )
 class acceptrejectappoinmentPage(View):
     def get(self, request):
-        return render(request, "doctor/accept_reject_appoinment.html")
+        obj = AppoinmentTable.objects.all()
+        return render(request, "doctor/accept_reject_appoinment.html", {'val': obj} )
 class DoctorHome(View):
     def get(self, request):
         return render(request, "doctor/doctor_dashboard.html")
 class ManagePost(View):
     def get(self, request):
-        return render(request, "doctor/manage_post.html")
+        obj = PostTable.objects.all()
+        return render(request, "doctor/manage_post.html", {'val': obj} )

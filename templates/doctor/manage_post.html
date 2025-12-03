@@ -12,14 +12,16 @@
             <th>description</th>
             <th>Action</th>
         </tr>
+        {% for i in val %}
         <tr>
-            <td></td>
-            <td></td>
+            <td>{{ i.Image }}</td>
+            <td>{{ i.Document }}</td>
             <td>
                 <button>Edit</button>
                 <button>Delete</button>
             </td>
         </tr>
+        {% endfor %}
     </table>
     <input type="submit" value="Add new">
 </body>

@@ -16,18 +16,21 @@
             <th>Address</th>
             <th>Actions</th>
         </tr>
+        {% for i in val %}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ i.Name }}</td>
+            <td>{{ i.Age }}</td>
+            <td>{{ i.Gender }}</td>
+            <td>{{ i.PhNumber }}</td>
+            <td>{{ i.Email }} </td>
+            <td>{{ i.Address }}</td>
             <td>
                 <button>Edit</button>
                 <button>Delete</button>
             </td>
         </tr>
+        {% endfor %}
     </table>
+    <input type="submit" value="Add">
 </body>
 </html>

@@ -14,16 +14,19 @@
             <th>price</th>
             <th>Actions</th>
         </tr>
+        {% for i in val %}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ i.Medicine }}</td>
+            <td>{{ i.Description }}</td>
+            <td>{{ i.Quantity }}</td>
+            <td>{{ i.Price }}</td>
             <td>
                 <button>Edit</button>
                 <button>Delete</button>
             </td>
         </tr>
+        {% endfor %}
     </table>
+    <input type="submit" value="Add">
 </body>
 </html>

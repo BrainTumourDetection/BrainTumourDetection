@@ -14,16 +14,18 @@
             <th>Time</th>
             <th>Action</th>
         </tr>
+        {% for i in val %}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ i.PATIENT.Name }}</td>
+            <td>{{ i.DOCTOR.Name }}</td>
+            <td>{{ i.Date }}</td>
+            <td>{{ i.time }}</td>
             <td>
                 <button>Approve</button>
                 <button>Reject</button>
             </td>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>

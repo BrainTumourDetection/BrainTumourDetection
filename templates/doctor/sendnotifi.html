@@ -3,20 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>notification table</title>
+    <title>sendnotification table</title>
 </head>
 <body>
     <table  border="1" cellpadding="8" cellspacing="0">
         <tr>
-            <th>notification </th>
-            <th>date</th>
+            <td></td>
         </tr>
-        {% for i in val %}
-        <tr>
-        <td>{{ i.Notification }}</td>
-        <td>{{ i.Date }}</td>
-        </tr>
-        {% endfor %}
     </table>
+    <input type="submit" value="send">
 </body>
 </html>

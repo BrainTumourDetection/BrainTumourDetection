@@ -12,10 +12,12 @@
             <th>description</th>
             
         </tr>
+        {% for i in val %}
         <tr>
-            <td></td>
-            <td></td>
+            <td><img src="{{ i.Image.url }}" alt=""></td>
+            <td>{{ i.Document }}</td>
         </tr>
+        {% endfor %}
     </table>
     <input type="submit" value="submit">
 </body>
