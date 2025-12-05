@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
 
-from BrainTumorDetectionApp.forms import DoctorForm, MedicineForms
+from BrainTumorDetectionApp.forms import DoctorForm, MedicineForms, PrescriptionForms
 from BrainTumorDetectionApp.models import AppoinmentTable, DoctorTable, LoginTable, MedicineTable, PatientTable, PostTable, PrescriptionTable, notificationTable
 
 # Create your views here.
@@ -79,7 +79,25 @@ class ManageMedicinePage(View):
         v=MedicineForms(request.POST)
         if v.is_valid():
             v.save()
-            return redirect('/view-medi')
+            return redirect('medicine')
+        
+class DeletemedicinePage(View):
+    def get(self, request, m_id):
+        obj = MedicineTable.objects.get(id=m_id)
+        obj.delete()
+        return redirect('medicine')
+    
+class EditmedicinePage(View):
+    def get(self, request, m_id):
+        obj = MedicineTable.objects.get(id=m_id)
+        return render(request, "administration/edit_medi.html", {'val': obj})
+    def post(self, request,m_id):
+        if request.method == 'POST':
+            obj = MedicineTable.objects.get(id=m_id)
+            form = MedicineForms(request.POST, instance=obj)
+            if form.is_valid():
+                form.save()
+                return redirect('medicine')
 
 
 class RegistrationPage(View):
@@ -103,7 +121,7 @@ class viewdoctorPage(View):
 class medicinePage(View):
     def get(self, request):
         obj = MedicineTable.objects.all()
-        return render(request, "administration/view-medi.html", {'val': obj})
+        return render(request, "administration/view_medi.html", {'val': obj})
 class PatientPage(View):
     def get(self, request):
         obj = PatientTable.objects.all()
@@ -119,21 +137,39 @@ class notificationPage(View):
     def get(self, request):
         obj = notificationTable.objects.all()
         return render(request, "doctor/notification.html", {'val': obj} )
+    
 class postPage(View):
     def get(self, request):
         obj = PostTable.objects.all()
         return render(request, "doctor/post_table.html", {'val': obj} )
+    
 class prescriptionPage(View):
     def get(self, request):
         obj = PrescriptionTable.objects.all()
         return render(request, "doctor/prescription.html", {'val': obj} )
+class DeleteprescriptionPage(View):
+    def get(self, request,p_id):
+        obj = PrescriptionTable.objects.get(id=p_id)
+        obj.delete()
+        return redirect('prescrip')
+class ManageprescriptionPage(View):
+    def get(self, request):
+        return render(request, "doctor/manage_prescrip.html")
+    def post(self, request):
+        v=PrescriptionForms(request.POST)
+        if v.is_valid():
+            v.save()
+            return redirect('prescrip')
+
 class acceptrejectappoinmentPage(View):
     def get(self, request):
         obj = AppoinmentTable.objects.all()
         return render(request, "doctor/accept_reject_appoinment.html", {'val': obj} )
+    
 class DoctorHome(View):
     def get(self, request):
         return render(request, "doctor/doctor_dashboard.html")
+    
 class ManagePost(View):
     def get(self, request):
         obj = PostTable.objects.all()

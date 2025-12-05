@@ -21,12 +21,13 @@
             <td>{{ i.Prescription }}</td>
             <td>{{ i.Medicine.Medicine }}</td>
             <td>
-                <button>Edit</button>
-                <button>Delete</button>
+                <a href="prescrip/{{i.id}}"><button>edit</button></a>
+                <a href="delete_prescrip/{{i.id}}"><button>Delete</button></a>
+            
             </td>
         </tr>
         {% endfor %}
     </table>
-    <input type="submit" value="Add">
+    <a href="manage_prescrip"><input type="submit" value="Add"></a>
 </body>
 </html>
