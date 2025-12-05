@@ -25,12 +25,12 @@
             <td>{{ i.HospitalName }}</td>
             <td>{{ i.Email }}</td>
             <td>
-                <button>Edit</button>
-                <button>Delete</button>
+                <a href="edit_doc/{{i.id}}"><button>Edit</button></a>
+                <a href="delete_doc/{{i.LOGIN.id}}"><button>Delete</button></a>
             </td>
         </tr>
         {% endfor %}
     </table>
-    <input type="submit" value="Add">
+    <a href="Managedoc"><input type="submit" value="Add"></a>
 </body>
 </html>

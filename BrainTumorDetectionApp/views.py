@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
 
-from BrainTumorDetectionApp.forms import DoctorForm
+from BrainTumorDetectionApp.forms import DoctorForm, MedicineForms
 from BrainTumorDetectionApp.models import AppoinmentTable, DoctorTable, LoginTable, MedicineTable, PatientTable, PostTable, PrescriptionTable, notificationTable
 
 # Create your views here.
@@ -34,6 +34,7 @@ class ManageDoctorPage(View):
     def post(self, request):
         if request.method == 'POST':
             print("-------------------->", request.POST)
+
             form = DoctorForm(request.POST)
             username = request.POST['Email']
             password = request.POST['password']
@@ -44,18 +45,56 @@ class ManageDoctorPage(View):
                 f=form.save(commit=False)
                 f.LOGIN=login_obj
                 f.save()
-                return redirect('Managedoc')
+                return redirect('doctor')
+
+
+class EditdoctorPage(View):
+    def get(self, request, d_id):
+        obj = DoctorTable.objects.get(id=d_id)
+        return render(request, "administration/edit_doc.html", {'val': obj})
+    def post(self, request,d_id):
+        if request.method == 'POST':
+            obj = DoctorTable.objects.get(id=d_id)
+            form = DoctorForm(request.POST, instance=obj)
+            if form.is_valid():
+                form.save()
+                return redirect('doctor')
+
+class DeletedoctorPage(View):
+    def get(self, request, d_id):
+        obj = LoginTable.objects.get(id=d_id)
+        obj.delete()
+        return redirect('doctor')
+    
+class DeletepatientPage(View):
+    def get(self, request, id):
+        obj = LoginTable.objects.get(id=id)
+        obj.delete()
+        return redirect('patient')
 
 class ManageMedicinePage(View):
     def get(self, request):
         return render(request, "administration/manage_medi.html")
+    def post(self, request):
+        v=MedicineForms(request.POST)
+        if v.is_valid():
+            v.save()
+            return redirect('/view-medi')
+
+
 class RegistrationPage(View):
     def get(self, request):
         return render(request, "administration/registration.html")
+    
 class viewappoinmentPage(View):
     def get(self, request):
         obj = AppoinmentTable.objects.all()
         return render(request, "administration/view_appoinment.html", {'val': obj} )
+class DeleteappoinmentPage(View):
+    def get(self, request, id):
+        obj = AppoinmentTable.objects.get(id=id)
+        obj.delete()
+        return redirect('appoinment')
     
 class viewdoctorPage(View):
     def get(self, request):
@@ -74,7 +113,6 @@ class AdminHome(View):
     def get(self, request):
         return render(request, "administration/admin_dashboard.html")  
     
-
 # ////////////////////////////////////////// DOCTOR /////////////////////////////////////////////////
 
 class notificationPage(View):

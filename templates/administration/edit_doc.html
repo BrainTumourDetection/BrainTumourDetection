@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit doctor</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="Doctor">Doctor</label>
+        <input type="text" id="Doctor" name="Name" value="{{val.Name}}" required><br><br>
+
+         <label for="PhNumber">PhNumber:</label>
+        <input type="number" id="PhNumber" name="PhNumber" value="{{val.PhNumber}}"><br><br>
+
+        <label for="Address"></label>Address:</label>
+        <input type="text" id="Address" name="Address" value="{{val.Address}}"><br><br>
+
+
+        <label for="Specialization">Specialization:</label>
+        <input type="text" name="Specialization" value="{{val.Specialization}}" required><br><br>
+
+        <label for="HospitalName">HospitalName:</label>
+        <input type="text" id="HospitalName" name="HospitalName" value="{{val.HospitalName}}"><br><br>
+        
+        <label for="Email">Email:</label>
+        <input type="Email" name="Email" value="{{val.Email}}"><br><br>
+
+        <input type="submit" value="edit">
+</body>
+</html>

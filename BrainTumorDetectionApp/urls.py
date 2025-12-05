@@ -25,11 +25,16 @@ urlpatterns = [
     # //////////////////////////////////////////// ADMIN /////////////////////////////////////////////////
 
     path('Managedoc', ManageDoctorPage.as_view(), name="Managedoc"),
-    path('Managemed', ManageMedicinePage.as_view(), name="Managemed"),
+    path('manage_medi', ManageMedicinePage.as_view(), name="manage_medi"),
     path('registration', RegistrationPage.as_view(), name="registration"),
     path('appoinment', viewappoinmentPage.as_view(), name="appoinment"),
+    path('delete_appoinment/<int:id>', DeleteappoinmentPage.as_view(), name="delete_appoinment"),
+
     path('doctor', viewdoctorPage.as_view(), name="doctor"),
-    path('medicine', medicinePage.as_view(), name="medicine"),
+    path('edit_doc/<int:d_id>', EditdoctorPage.as_view(), name="edit_doc"),
+    path('delete_doc/<int:d_id>', DeletedoctorPage.as_view(), name="delete_doc"),
+    path('delete_patient/<int:id>', DeletepatientPage.as_view(), name="delete_patient"),
+    path('view-medi', medicinePage.as_view(), name="view-medi"),
     path('patient', PatientPage.as_view(), name="patient"),
     path('adminhome', AdminHome.as_view(), name="adminhome"),
 

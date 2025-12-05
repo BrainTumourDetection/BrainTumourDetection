@@ -18,6 +18,7 @@ class DoctorTable(models.Model):
     Email=models.CharField(max_length=30, null=True, blank=True)
     # Password=models.CharField(max_length=30, null=True, blank=True)
 
+
 class PatientTable(models.Model):
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE)
     Name=models.CharField(max_length=30, null=True, blank=True)

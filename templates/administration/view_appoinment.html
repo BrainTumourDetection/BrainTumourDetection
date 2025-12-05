@@ -16,17 +16,16 @@
         </tr>
         {% for i in val %}
         <tr>
-            <td>{{ i.PATIENT }}</td>
-            <td>{{ i.DOCTOR }}</td>
+            <td>{{ i.PATIENT.Name }}</td>
+            <td>{{ i.DOCTOR.Name }}</td>
             <td>{{ i.Date }}</td>
             <td>{{ i.Status }}</td>
             <td>
-                <button>Edit</button>
-                <button>Delete</button>
+            
+               <a href="delete_appoinment/{{i.id}}"><button>Delete</button></a>
             </td>
         </tr>
        {% endfor %} 
     </table>
-    <input type="submit" value="Add">
 </body>
 </html>

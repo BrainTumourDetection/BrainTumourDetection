@@ -14,7 +14,7 @@
         </tr>
         {% for i in val %}
         <tr>
-            <td>{{ i.Image }}</td>
+            <td><img src="{{ i.Image.url }}" alt=""></td>
             <td>{{ i.Document }}</td>
             <td>
                 <button>Edit</button>

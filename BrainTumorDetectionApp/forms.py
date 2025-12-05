@@ -5,6 +5,7 @@ class DoctorForm(forms.ModelForm):
         model = DoctorTable
         fields = ['Name','PhNumber','Address','Specialization','HospitalName','Email']
 
+
 class PatientForm(forms.ModelForm):
     class Meta:
         model = PatientTable
