@@ -156,9 +156,9 @@ class ManageprescriptionPage(View):
     def get(self, request):
         return render(request, "doctor/manage_prescrip.html")
     def post(self, request):
-        v=PrescriptionForms(request.POST)
-        if v.is_valid():
-            v.save()
+        a=PrescriptionForms(request.POST)
+        if a.is_valid():
+            a.save()
             return redirect('prescrip')
 
 class acceptrejectappoinmentPage(View):

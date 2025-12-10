@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit prescrip</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="patient">Patient:</label>
+        <input type="text" id="patient" name="PATIENT" value="{{val.PATIENT}}" required><br><br>
+
+        <label for="doctor">Doctor:</label>
+        <input type="text" name="DOCTOR" value="{{val.DOCTOR}}"required><br><br>
+
+        <label for="Prescription">prescription:</label>
+        <input type="text" id="Prescription" name="Prescription" value="{{val.Prescription}}"><br><br>
+        
+        <label for="medicine">medicine:</label>
+        <input type="text" name="Medicine" value="{{val.Medicine}}"><br><br>
+
+        <input type="submit" value="add">    
+    
+</body>
+</html>
