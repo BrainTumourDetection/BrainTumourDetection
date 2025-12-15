@@ -46,11 +46,10 @@ class PrescriptionTable(models.Model):
     PATIENT=models.ForeignKey(PatientTable, on_delete=models.CASCADE)
     DOCTOR=models.ForeignKey(DoctorTable, on_delete=models.CASCADE)
     Prescription=models.CharField(max_length=300, null=True, blank=True)
-    Medicine=models.ForeignKey(MedicineTable, on_delete=models.CASCADE)
 
 class PostTable(models.Model):
     DOCTOR=models.ForeignKey(DoctorTable, on_delete=models.CASCADE)
-    Image=models.FileField(null=True, blank=True)
+    Image=models.FileField(null=True, blank=True ,upload_to='upload/')
     Document=models.CharField(max_length=300, null=True, blank=True)
     Date=models.DateField(auto_now_add=True, null=True, blank=True)
 

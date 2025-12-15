@@ -10,15 +10,19 @@
         <tr>
             <th>image</th>
             <th>description</th>
-            
+            <th>Action</th>
         </tr>
         {% for i in val %}
         <tr>
-            <td><img src="{{ i.Image.url }}" alt=""></td>
+            <td>{% if i.Image %}<img src="{{ i.Image.url }}" alt="" height="100px" width="100px">{% else %} no image {% endif %}</td>
             <td>{{ i.Document }}</td>
+            <td>
+                <button>Edit</button>
+                <button>Delete</button>
+            </td>
         </tr>
         {% endfor %}
     </table>
-    <input type="submit" value="submit">
+    <a href="manage"><input type="submit" value="add"></a>
 </body>
 </html>

@@ -24,7 +24,7 @@ class MedicineForms(forms.ModelForm):
 class PrescriptionForms(forms.ModelForm):
     class Meta:
         model = PrescriptionTable
-        fields = ['Prescription','Medicine']
+        fields = ['Prescription','PATIENT']
 
 class PostForms(forms.ModelForm):
     class Meta:

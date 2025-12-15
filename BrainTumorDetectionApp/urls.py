@@ -1,20 +1,4 @@
-"""
-URL configuration for BrainTumorDetection project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
 from django.urls import path
 
 from BrainTumorDetectionApp.views import *
@@ -45,10 +29,13 @@ urlpatterns = [
     path('notification', notificationPage.as_view(), name="notification"),
     path('post', postPage.as_view(), name="post"),
     path('prescrip', prescriptionPage.as_view(), name="prescrip"),
+    path('edit_prescrip/<int:id>', EditprescriptionPage.as_view(), name="edit_prescrip"),
     path('delete_prescrip/<int:p_id>', DeleteprescriptionPage.as_view(), name="delete_prescrip"),
     path('manage_prescrip', ManageprescriptionPage.as_view(), name="manage_prescrip"),
 
     path('accept_reject_appoinment', acceptrejectappoinmentPage.as_view(), name="aaccept_reject_appoinment"),
+    path('accepted/<int:id>', acceptappoinmentPage.as_view()),
+    path('rejected/<int:id>', RejectAppointment.as_view()),
     path('doctorhome', DoctorHome.as_view(), name="doctorhome"),
     path('manage', ManagePost.as_view(), name="manage"),
 

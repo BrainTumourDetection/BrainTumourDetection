@@ -21,8 +21,15 @@
             <td>{{ i.Date }}</td>
             <td>{{ i.time }}</td>
             <td>
-                <button>Approve</button>
-                <button>Reject</button>
+                {% if i.Status == "accepted" %}
+                <button onclick="return window.location='/rejected/{{i.id}}'">Reject</button>
+
+                {% elif i.Status == "rejected" %}
+                <button onclick="return window.location='/accepted/{{i.id}}'">Approve</button>
+{% else %}
+                <button onclick="return window.location='/accepted/{{i.id}}'">Approve</button>
+                <button onclick="return window.location='/rejected/{{i.id}}'">Reject</button>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

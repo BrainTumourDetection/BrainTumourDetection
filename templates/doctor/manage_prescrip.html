@@ -11,16 +11,19 @@
         {% csrf_token %}
 
         <label for="patient">Patient:</label>
-        <input type="text" id="patient" name="PATIENT" required><br><br>
+        <select id="patient" name="PATIENT" required>
+            <option value="">------ please select a patient -------</option>
+            {% for i in val %}
+            <option value="{{i.PATIENT.id}}">{{i.PATIENT.Name}}</option>
+            {% endfor %}
+        </select><br><br>
 
-        <label for="doctor">Doctor:</label>
-        <input type="text" name="DOCTOR" required><br><br>
+        
 
         <label for="Prescription">prescription:</label>
         <input type="text" id="Prescription" name="Prescription"><br><br>
         
-        <label for="medicine">medicine:</label>
-        <input type="text" name="Medicine"><br><br>
+
 
         <input type="submit" value="add">
 </body>
