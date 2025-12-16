@@ -26,8 +26,13 @@ urlpatterns = [
 
     # //////////////////////////////////////////// DOCTOR ////////////////////////////////////////////////
 
-    path('notification', notificationPage.as_view(), name="notification"),
+    path('notification', notificationPage.as_view(), name="addnotifi"),
+    path('addnotifi',addnotification.as_view(), name="addnotifi"),
     path('post', postPage.as_view(), name="post"),
+    path('deletepost/<int:id>', DeletepostPage.as_view(), name="deletepost"),
+    path('edit_post/<int:id>', EditpostPage.as_view(), name="edit_post"),
+
+    path('manage', ManagePost.as_view(), name="manage"),
     path('prescrip', prescriptionPage.as_view(), name="prescrip"),
     path('edit_prescrip/<int:id>', EditprescriptionPage.as_view(), name="edit_prescrip"),
     path('delete_prescrip/<int:p_id>', DeleteprescriptionPage.as_view(), name="delete_prescrip"),
@@ -37,6 +42,6 @@ urlpatterns = [
     path('accepted/<int:id>', acceptappoinmentPage.as_view()),
     path('rejected/<int:id>', RejectAppointment.as_view()),
     path('doctorhome', DoctorHome.as_view(), name="doctorhome"),
-    path('manage', ManagePost.as_view(), name="manage"),
+   
 
 ]

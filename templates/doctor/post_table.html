@@ -17,8 +17,8 @@
             <td>{% if i.Image %}<img src="{{ i.Image.url }}" alt="" height="100px" width="100px">{% else %} no image {% endif %}</td>
             <td>{{ i.Document }}</td>
             <td>
-                <button>Edit</button>
-                <button>Delete</button>
+                <a href="edit_post/{{i.id}}"><button>Edit</button></a>
+                <a href="deletepost/{{i.id}}"><button>Delete</button></a>
             </td>
         </tr>
         {% endfor %}

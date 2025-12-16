@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
 
-from BrainTumorDetectionApp.forms import DoctorForm, MedicineForms, PostForms, PrescriptionForms
+from BrainTumorDetectionApp.forms import DoctorForm, MedicineForms, PostForms, PrescriptionForms, notificationForms
 from BrainTumorDetectionApp.models import AppoinmentTable, DoctorTable, LoginTable, MedicineTable, PatientTable, PostTable, PrescriptionTable, notificationTable
 
 # Create your views here.
@@ -138,14 +138,56 @@ class notificationPage(View):
         obj = notificationTable.objects.all()
         return render(request, "doctor/notification.html", {'val': obj} )
     
+    
+class addnotification(View):
+        def get(self, request):
+            obj = notificationTable.objects.all()
+            return render(request, "doctor/addnotifi.html", {'val': obj} )
+        def post(self, request):
+            b=notificationForms(request.POST)
+            if b.is_valid():
+                b.save()
+                return redirect('/notification')
+    
 class postPage(View):
     def get(self, request):
         obj = PostTable.objects.all()
         return render(request, "doctor/post_table.html", {'val': obj} )
-    
+class DeletepostPage(View):
+    def get(self, request, id):
+        obj = PostTable.objects.get(id=id)
+        obj.delete()
+        return redirect('post')
+class EditpostPage(View):
+    def get(self, request,id):
+        obj = PostTable.objects.get(id=id)
+        return render(request, 'doctor/edit_post.html', {'val': obj})
+    def post(self, request,id):
+            obj = PostTable.objects.get(id=id)
+            form = PostForms(request.POST,  request.FILES, instance=obj)
+            c = DoctorTable.objects.get(LOGIN__id = request.session['user_id'])
+            if form.is_valid():
+                reg = form.save(commit=False)
+                reg.DOCTOR = c
+                reg.save()
+                return redirect('post')
+            
+class ManagePost(View):
+    def get(self, request):
+        obj = PostTable.objects.all()
+        return render(request, "doctor/manage_post.html", {'val': obj} )
+    def post(self, request):
+        c = DoctorTable.objects.get(LOGIN__id = request.session['user_id'])
+        a= PostForms(request.POST, request.FILES)
+        if a.is_valid():
+            reg = a.save(commit=False)
+            reg.DOCTOR = c
+            reg.save()
+            return redirect('post')
+           
 class prescriptionPage(View):
     def get(self, request):
-        obj = PrescriptionTable.objects.all()
+        obj = PrescriptionTable.objects.filter(DOCTOR__LOGIN__id =  request.session['user_id'])
         return render(request, "doctor/prescription.html", {'val': obj} )
 class DeleteprescriptionPage(View):
     def get(self, request,p_id):
@@ -155,7 +197,7 @@ class DeleteprescriptionPage(View):
 class EditprescriptionPage(View):
     def get(self, request,id):
         obj = PrescriptionTable.objects.get(id=id)
-        c=AppoinmentTable.objects.filter(DOCTOR__LOGIN__id=     request.session['user_id'] )
+        c=AppoinmentTable.objects.filter(DOCTOR__LOGIN__id= request.session['user_id'] )
         return render(request, "doctor/edit_prescrip.html", {'val': obj, 'c':c} )
     def post(self, request,id):
             obj = PrescriptionTable.objects.get(id=id)
@@ -204,15 +246,3 @@ class DoctorHome(View):
     def get(self, request):
         return render(request, "doctor/doctor_dashboard.html")
     
-class ManagePost(View):
-    def get(self, request):
-        obj = PostTable.objects.all()
-        return render(request, "doctor/manage_post.html", {'val': obj} )
-    def post(self, request):
-        c = DoctorTable.objects.get(LOGIN__id = request.session['user_id'])
-        a= PostForms(request.POST, request.FILES)
-        if a.is_valid():
-            reg = a.save(commit=False)
-            reg.DOCTOR = c
-            reg.save()
-            return redirect('post')

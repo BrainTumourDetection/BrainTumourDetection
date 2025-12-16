@@ -11,12 +11,16 @@
         {% csrf_token %}
 
         <label for="patient">Patient:</label>
-        <select id="patient" name="PATIENT" >
-            <option value="">------ please select a patient -------</option>
-            {% for i in c %}
-            <option value="{{i.PATIENT.id}}" {% if val.PATIENT.id == i.PATIENT.id %} selected {% endif %}>{{i.PATIENT.Name}}</option>
-            {% endfor %}
-        </select><br><br>
+        <select id="patient" name="PATIENT">
+    <option value="">------ please select a patient -------</option>
+    {% for i in c %}
+        <option value="{{ i.PATIENT.id }}"
+            {% if val.PATIENT.id == i.PATIENT.id %}selected{% endif %}>
+            {{ i.PATIENT.Name }}
+        </option>
+    {% endfor %}
+</select>
+<br><br>
 
         
 
