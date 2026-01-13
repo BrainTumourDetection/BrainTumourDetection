@@ -246,3 +246,24 @@ class DoctorHome(View):
     def get(self, request):
         return render(request, "doctor/doctor_dashboard.html")
     
+
+
+
+
+############################API############################################
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+# from rest_framework.status import HTTP_200_ok, HTTP_400_BAD_REQUEST, HTTP_500_INTERNAL_SERVER_E
+
+# class Patientreg(APIView):
+#     def post(self,request):
+#         reg_serial=RegisterSerializer(data=request.data)
+#         login_serial=loginSerializer(data=request.data)
+#         regvalid=reg_serial.is_valid()
+#         loginvalid=login_serial.is_valid()
+#         if regvalid and loginvalid:
+#             login=login_serial.save(user_type='patient')
+#             reg_serial.save(LOGINID=login)
+#             return response({'message':'registration succesfull'},status=HTTP_200_OK)
+#         else :
+#             return response({'registration error':reg_serial.errors if not regvalid else none,'loginerrror':login_serial.errors if not loginvalid else none},status=HTTP_200_OK)
