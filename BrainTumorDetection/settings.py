@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-zch0wq7^@@%@!6sik_!z9(5bw42+a1@&87eotdfc)69h)bu6my
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BrainTumorDetectionApp',
+    'rest_framework'
     
 ]
 

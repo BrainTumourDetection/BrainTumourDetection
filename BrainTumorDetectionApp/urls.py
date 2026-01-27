@@ -44,4 +44,14 @@ urlpatterns = [
     path('doctorhome', DoctorHome.as_view(), name="doctorhome"),
    
 
+
+
+
+
+#//////////////////////////////////////////////////api///////////////////////////////////////////////////////   
+    path('loginapi', Login_API.as_view()),
+    path('patientapi',Patient_API.as_view()),
+
+
+
 ]

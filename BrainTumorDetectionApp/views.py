@@ -2,8 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
 
-from BrainTumorDetectionApp.forms import DoctorForm, MedicineForms, PostForms, PrescriptionForms, notificationForms
-from BrainTumorDetectionApp.models import AppoinmentTable, DoctorTable, LoginTable, MedicineTable, PatientTable, PostTable, PrescriptionTable, notificationTable
+from .serializer import *
+from .forms import*
+from .models import *
 
 # Create your views here.
 
@@ -267,3 +268,64 @@ class DoctorHome(View):
 #             return response({'message':'registration succesfull'},status=HTTP_200_OK)
 #         else :
 #             return response({'registration error':reg_serial.errors if not regvalid else none,'loginerrror':login_serial.errors if not loginvalid else none},status=HTTP_200_OK)
+from django.contrib.auth.hashers import make_password
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from rest_framework import status
+from rest_framework.status import(
+    HTTP_200_OK,
+    HTTP_400_BAD_REQUEST,
+    HTTP_401_UNAUTHORIZED)
+
+class Login_API(APIView):
+    def post(self,request):
+        print("############",request.POST)
+        response_dict ={}
+
+        Username = request.data.get("Username")
+        Password = request.data.get("Password")
+        print("$$$$$$$$$$$",Username)
+
+        if not Username or not Password:
+            response_dict["message"] = "field"
+            return Response(response_dict, status=HTTP_400_BAD_REQUEST)
+        
+        t_user= LoginTable.objects.filter(Username=Username,Password=Password).first()
+        print("%%%%%%%%%%%",t_user)
+
+        if not t_user:
+            response_dict["message"]= "failed"
+            return Response(response_dict, status=HTTP_401_UNAUTHORIZED)
+        else:
+            response_dict["message"] = "success"
+            response_dict["login_id"] = t_user.id
+            response_dict["Usertype"] = t_user.UserType
+
+            return Response(response_dict,status=HTTP_200_OK)
+        
+
+
+class Patient_API(APIView):
+    def post(self, request):
+        print("REQUEST DATA:", request.data)
+
+        user_serial = PatientSerializer(data=request.data)
+        login_serial = LoginSerializr(data=request.data)
+
+        user_valid = user_serial.is_valid()
+        login_valid = login_serial.is_valid()
+
+        print("LOGIN ERRORS:", login_serial.errors)
+        print("USER ERRORS:", user_serial.errors)
+
+        if user_valid and login_valid:
+            login_profile = login_serial.save(UserType='patient')
+            user = user_serial.save(LOGIN=login_profile)
+            return Response(user_serial.data, status=status.HTTP_201_CREATED)
+
+        return Response({
+            "login_errors": login_serial.errors,
+            "user_errors": user_serial.errors,
+            "received_data": request.data
+        }, status=status.HTTP_400_BAD_REQUEST)
